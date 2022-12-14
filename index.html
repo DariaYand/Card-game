@@ -1,29 +1,30 @@
 <!DOCTYPE html>
 <html lang="ru">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Game</title>
+        <link rel="stylesheet" href="style.css" />
+    </head>
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Game</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-
-<body>
-    <div class="app">
-        <div class="content">
-            <header class="content__header">Выбери <br> сложность</header>
-            <div class="content__level">
-                <button class="content__level_box easy">1</button>
-                <button class="content__level_box medium">2</button>
-                <button class="content__level_box hard">3</button>
+    <body>
+        <div class="app">
+            <div class="content">
+                <header class="content__header">
+                    Выбери <br />
+                    сложность
+                </header>
+                <div class="content__level">
+                    <button class="content__level_box easy">1</button>
+                    <button class="content__level_box medium">2</button>
+                    <button class="content__level_box hard">3</button>
+                </div>
+                <button class="button button__start">Старт</button>
             </div>
-            <button class="content__button">Старт</button>
         </div>
-    </div>
-    <script src="cards.js"></script>
-    <script src="templateEngine.js"></script>
-    <script src="script.js"></script>
-</body>
-
+        <script src="data.js"></script>
+        <script src="templateEngine.js"></script>
+        <script src="script.js"></script>
+    </body>
 </html>
