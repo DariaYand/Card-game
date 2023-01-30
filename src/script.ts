@@ -44,33 +44,38 @@ import cover from '/src/img/cover.png'
 import win_pic from '/src/img/celebration.png'
 import lose_pic from '/src/img/loser.png'
 
-const app = document.querySelector('.app')
-
-const startButton = document.querySelector('.button__start')
-
-let countdown__numbers
-let cardsAmount
+let countdown__numbers: HTMLElement
+let cardsAmount: number
 let gameStatus
-let timer
-let userGameTime
+let timer: NodeJS.Timer
+let userGameTime: string
 
-const buttons = document.querySelectorAll('.content__level_box')
+const app = document.querySelector('.app') as HTMLElement
 
-const clickButton = function (event) {
-    buttons.forEach((element) => {
+const startButton = document.querySelector('.button__start') as HTMLButtonElement
+
+const buttons: NodeListOf<HTMLElement> = document.querySelectorAll(
+    '.content__level_box'
+)
+
+function clickButton(event: Event) {
+    buttons.forEach((element: HTMLElement) => {
         element.classList.remove('active')
     })
-    const target = event.target
-    target.classList.add('active')
-    if (target.classList.contains('easy')) {
-        cardsAmount = 3
-    } else if (target.classList.contains('medium')) {
-        cardsAmount = 6
-    } else if (target.classList.contains('hard')) {
-        cardsAmount = 9
+    if (event.target instanceof HTMLDivElement) {
+        const target: HTMLElement = event.target
+        target.classList.add('active')
+        if (target.classList.contains('easy')) {
+            cardsAmount = 3
+        } else if (target.classList.contains('medium')) {
+            cardsAmount = 6
+        } else if (target.classList.contains('hard')) {
+            cardsAmount = 9
+        }
     }
 }
-buttons.forEach((element) => {
+
+buttons.forEach((element: HTMLElement) => {
     element.classList.remove('active')
     element.addEventListener('click', clickButton)
 })
@@ -86,8 +91,10 @@ function renderTimer() {
         let currentTime = new Date().getTime()
         let gameTime = currentTime - startTime
 
-        let minutes = Math.floor((gameTime % (1000 * 60 * 60)) / (1000 * 60))
-        let seconds = Math.floor((gameTime % (1000 * 60)) / 1000)
+        let minutes: number = Math.floor(
+            (gameTime % (1000 * 60 * 60)) / (1000 * 60)
+        )
+        let seconds: number = Math.floor((gameTime % (1000 * 60)) / 1000)
 
         if (minutes < 10 && seconds < 10) {
             countdown__numbers.textContent = `0${minutes}.0${seconds}`
@@ -105,7 +112,7 @@ function renderTimer() {
     }, 1000)
 }
 
-function renderTopContent(container) {
+function renderTopContent(container: HTMLElement) {
     const topContent = document.createElement('div')
     topContent.classList.add('top')
 
@@ -298,19 +305,19 @@ function renderPlayField() {
         },
     ]
 
-    const range = 35
+    const range: number = 35
 
-    let m = {}
-    let randomCardsIndex = []
+    let m: number[] = []
+    let randomCardsIndex: number[] = []
     for (let i = 0; i < cardsAmount; ++i) {
-        let r = Math.floor(Math.random() * (range - i))
+        let r: number = Math.floor(Math.random() * (range - i))
         randomCardsIndex.push((r in m ? m[r] : r) + 1)
         randomCardsIndex.push((r in m ? m[r] : r) + 1)
         let l = range - i - 1
         m[r] = l in m ? m[l] : l
     }
 
-    function shuffle(array) {
+    function shuffle(array: Array<number>) {
         array.sort(() => Math.random() - 0.5)
     }
 
@@ -344,43 +351,50 @@ function renderPlayField() {
     function compareTwoCards() {
         let clicks = 0
 
-        let cardOne
-        let cardOneId
-        let cardOneIndex = 0
+        let cardOne: HTMLElement
+        let cardOneId: String
+        let cardOneIndex: number = 0
 
-        let cardTwo
-        let cardTwoId
-        let cardTwoIndex = 0
-        let win = 0
+        let cardTwo: HTMLElement
+        let cardTwoId: String
+        let cardTwoIndex: number = 0
+        let win: number = 0
 
-        playField.addEventListener('click', function (evt) {
-            let index = [...this.children].findIndex((el) => el == evt.target)
+        playField.addEventListener('click', function (event: Event) {
+            if (event.target instanceof HTMLDivElement) {
+                let index: number = [...this.children].findIndex(
+                    (e) => e == event.target
+                )
 
-            clicks = clicks + 1
-            if (clicks === 1) {
-                cardOne = evt.target
-                cardOneId = evt.target.id
-                cardOneIndex = index
-            }
-            if (clicks === 2) {
-                cardTwo = evt.target
-                cardTwoId = evt.target.id
-                cardTwoIndex = index
-
-                if (cardOneId == cardTwoId && cardOneIndex !== cardTwoIndex) {
-                    cardOne.classList.add('.card__open')
-                    cardTwo.classList.add('.card__open')
-                    win = win + 1
-                } else {
-                    setTimeout(lose, 1000)
+                clicks = clicks + 1
+                if (clicks === 1) {
+                    cardOne = event.target
+                    cardOneId = event.target.id
+                    cardOneIndex = index
                 }
-            }
-            if (clicks > 1) {
-                clicks = 0
-            }
-            if (win === cardsAmount) {
-                gameStatus = 'win'
-                renderFinalScreen(gameStatus)
+                if (clicks === 2) {
+                    cardTwo = event.target
+                    cardTwoId = event.target.id
+                    cardTwoIndex = index
+
+                    if (
+                        cardOneId == cardTwoId &&
+                        cardOneIndex !== cardTwoIndex
+                    ) {
+                        cardOne.classList.add('.card__open')
+                        cardTwo.classList.add('.card__open')
+                        win = win + 1
+                    } else {
+                        setTimeout(lose, 1000)
+                    }
+                }
+                if (clicks > 1) {
+                    clicks = 0
+                }
+                if (win === cardsAmount) {
+                    gameStatus = 'win'
+                    renderFinalScreen(gameStatus)
+                }
             }
         })
 
@@ -390,15 +404,17 @@ function renderPlayField() {
         }
 
         cards.forEach((card) => {
-            card.addEventListener('click', (e) => {
-                let cardName = e.target.name
-                e.target.setAttribute('src', cardName)
+            card.addEventListener('click', (e: Event) => {
+                if (e.target instanceof HTMLImageElement) {
+                    let cardName = e.target.name
+                    e.target.setAttribute('src', cardName)
+                }
             })
         })
     }
 }
 
-function renderFinalScreen(result) {
+function renderFinalScreen(result: String) {
     countdown__numbers.textContent = '00.00'
     clearInterval(timer)
     const resultBackground = document.createElement('div')
