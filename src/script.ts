@@ -52,7 +52,9 @@ let userGameTime: string
 
 const app = document.querySelector('.app') as HTMLElement
 
-const startButton = document.querySelector('.button__start') as HTMLButtonElement
+const startButton = document.querySelector(
+    '.button__start'
+) as HTMLButtonElement
 
 const buttons: NodeListOf<HTMLElement> = document.querySelectorAll(
     '.content__level_box'
@@ -333,7 +335,7 @@ function renderPlayField() {
         let j = randomCardsIndex[i]
         card.setAttribute('src', `${cardList[j].img}`)
         card.setAttribute('id', `${cardList[j].name}`)
-        card.setAttribute('name', `${cardList[j].img}`)
+        card.setAttribute('data-name', `${cardList[j].img}`)
         playField.appendChild(card)
     }
 
@@ -362,7 +364,7 @@ function renderPlayField() {
 
         playField.addEventListener('click', function (event: Event) {
             if (event.target instanceof HTMLDivElement) {
-                let index: number = [...this.children].findIndex(
+                let index = [...this.children].findIndex(
                     (e) => e == event.target
                 )
 
@@ -406,8 +408,10 @@ function renderPlayField() {
         cards.forEach((card) => {
             card.addEventListener('click', (e: Event) => {
                 if (e.target instanceof HTMLImageElement) {
-                    let cardName = e.target.name
-                    e.target.setAttribute('src', cardName)
+                    let cardName: string | undefined = e.target.dataset.name
+                    if (cardName) {
+                        e.target.setAttribute('src', cardName)
+                    }
                 }
             })
         })
