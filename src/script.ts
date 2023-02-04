@@ -1,48 +1,48 @@
 import './style.scss'
 
-import six_hearts from '/static/6 черви.png'
-import seven_hearts from '/static/7 черви.png'
-import eight_hearts from '/static/8 черви.png'
-import nine_hearts from '/static/9 черви.png'
-import ten_hearts from '/static/10 черви.png'
-import J_hearts from '/static/валет черви.png'
-import Q_hearts from '/static/дама черви.png'
-import K_hearts from '/static/король черви.png'
-import A_hearts from '/static/туз черви.png'
+import six_hearts from './img/6 черви.png'
+import seven_hearts from './img/7 черви.png'
+import eight_hearts from './img/8 черви.png'
+import nine_hearts from './img/9 черви.png'
+import ten_hearts from './img/10 черви.png'
+import J_hearts from './img/валет черви.png'
+import Q_hearts from './img/дама черви.png'
+import K_hearts from './img/король черви.png'
+import A_hearts from './img/туз черви.png'
 
-import six_diamonds from '/static/6 бубны.png'
-import seven_diamonds from '/static/7 бубны.png'
-import eight_diamonds from '/static/8 бубны.png'
-import nine_diamonds from '/static/9 бубны.png'
-import ten_diamonds from '/static/10 бубны.png'
-import J_diamonds from '/static/валет бубны.png'
-import Q_diamonds from '/static/дама бубны.png'
-import K_diamonds from '/static/король бубны.png'
-import A_diamonds from '/static/туз бубны.png'
+import six_diamonds from './img/6 бубны.png'
+import seven_diamonds from './img/7 бубны.png'
+import eight_diamonds from './img/8 бубны.png'
+import nine_diamonds from './img/9 бубны.png'
+import ten_diamonds from './img/10 бубны.png'
+import J_diamonds from './img/валет бубны.png'
+import Q_diamonds from './img/дама бубны.png'
+import K_diamonds from './img/король бубны.png'
+import A_diamonds from './img/туз бубны.png'
 
-import six_clubs from '/static/6 крести.png'
-import seven_clubs from '/static/7 крести.png'
-import eight_clubs from '/static/8 крести.png'
-import nine_clubs from '/static/9 крести.png'
-import ten_clubs from '/static/10 крести.png'
-import J_clubs from '/static/валет крести.png'
-import Q_clubs from '/static/дама крести.png'
-import K_clubs from '/static/король крести.png'
-import A_clubs from '/static/туз крести.png'
+import six_clubs from './img/6 крести.png'
+import seven_clubs from './img/7 крести.png'
+import eight_clubs from './img/8 крести.png'
+import nine_clubs from './img/9 крести.png'
+import ten_clubs from './img/10 крести.png'
+import J_clubs from './img/валет крести.png'
+import Q_clubs from './img/дама крести.png'
+import K_clubs from './img/король крести.png'
+import A_clubs from './img/туз крести.png'
 
-import six_spikes from '/static/6 пики.png'
-import seven_spikes from '/static/7 пики.png'
-import eight_spikes from '/static/8 пики.png'
-import nine_spikes from '/static/9 пики.png'
-import ten_spikes from '/static/10 пики.png'
-import J_spikes from '/static/валет пики.png'
-import Q_spikes from '/static/дама пики.png'
-import K_spikes from '/static/король пики.png'
-import A_spikes from '/static/туз пики.png'
+import six_spikes from './img/6 пики.png'
+import seven_spikes from './img/7 пики.png'
+import eight_spikes from './img/8 пики.png'
+import nine_spikes from './img/9 пики.png'
+import ten_spikes from './img/10 пики.png'
+import J_spikes from './img/валет пики.png'
+import Q_spikes from './img/дама пики.png'
+import K_spikes from './img/король пики.png'
+import A_spikes from './img/туз пики.png'
 
-import cover from '/static/cover.png'
-import win_pic from '/static/celebration.png'
-import lose_pic from '/static/loser.png'
+import cover from './img/cover.png'
+import win_pic from './img/celebration.png'
+import lose_pic from './img/loser.png'
 
 let countdown__numbers: HTMLElement
 let cardsAmount: number
@@ -64,7 +64,7 @@ function clickButton(event: Event) {
     buttons.forEach((element: HTMLElement) => {
         element.classList.remove('active')
     })
-    if (event.target instanceof HTMLDivElement) {
+    if (event.target instanceof HTMLButtonElement) {
         const target: HTMLElement = event.target
         target.classList.add('active')
         if (target.classList.contains('easy')) {
@@ -363,7 +363,7 @@ function renderPlayField() {
         let win: number = 0
 
         playField.addEventListener('click', function (event: Event) {
-            if (event.target instanceof HTMLDivElement) {
+            if (event.target instanceof HTMLImageElement) {
                 let index = [...this.children].findIndex(
                     (e) => e == event.target
                 )
